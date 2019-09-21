@@ -63,13 +63,24 @@ services:
     image: rueian/pgpool:3.7.5-debian9
     container_name: pgpool-cluster-pgpool
     restart: always
+    environment:
+      - PCP_USER=pgmaster
+      - PCP_PASSWORD=pgmaster
+      - CHECK_USER=pgmaster
+      - CHECK_PASSWORD=pgmaster
+      - DB_USERS=pgmaster:pgmaster
     ports:
       - 3004:5432
       - 9898:9898
     volumes:
+      - ./pcp.conf:/etc/pgpool/pcp.conf
       - ./pgpool.conf:/etc/pgpool/pgpool.conf
       - ./pool_hba.conf:/etc/pgpool/pool_hba.conf
       - ./pool_passwd:/etc/pgpool/pool_passwd
+      - ./pcp.conf:/etc/pgpool2/pcp.conf
+      - ./pgpool.conf:/etc/pgpool2/pgpool.conf
+      - ./pool_hba.conf:/etc/pgpool2/pool_hba.conf
+      - ./pool_passwd:/etc/pgpool2/pool_passwd
     links:
       - pgmaster
       - pgslave1

@@ -14,6 +14,4 @@ RUN mkdir -p /var/run/pgpool/
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-RUN pg_md5 -m -f /etc/pgpool/pgpool.conf -u pgmaster -p pgmaster
-
 CMD ["/usr/sbin/pgpool", "-n"]
